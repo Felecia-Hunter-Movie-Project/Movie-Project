@@ -1,5 +1,6 @@
 // Later put in window.load or document.ready
 
+const moviesApiURL = "https://rambunctious-fabulous-gopher.glitch.me/movies";
 $(document).ready(function () {
 
     $("#submit-movie").click(function () {
@@ -53,8 +54,17 @@ $(document).ready(function () {
         moviesList.innerHTML = newListItem;
     }
 
-    $(".delete-movie").click(function (){
-       let deleteMovie =  $(this).attr(".delete-movie")
+    $("[id]").click(function (){
+       var deleteMovie =  $(this).attr("")
+        let deleteMethod = {
+            method: "DELETE"
+        }
+
+
+        fetch(moviesApiURL +"/7", deleteMethod).then(function(response){
+            console.log(response);
+        })
+
         console.log(deleteMovie);
     })
 
