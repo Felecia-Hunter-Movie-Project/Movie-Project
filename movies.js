@@ -1,23 +1,30 @@
-// Later put in window.load or document.ready
+
 
 const moviesApiURL = "https://rambunctious-fabulous-gopher.glitch.me/movies/";
 
 $(document).ready(function () {
+    // variable for the movies list
     const moviesList = document.getElementById("movies");
+
+    // This function gets movies from database
 
     function getMovies() {
         const moviesForm = document.querySelector("form");
         fetch("https://rambunctious-fabulous-gopher.glitch.me/movies")
             .then(response => (response.json())) // parse the JSON from the server
             .then(response => {
-                appendNewMovie(response)});
+                appendNewMovie(response)
+            });
 
         moviesForm.addEventListener("submit", event => {
             event.preventDefault();
         })
     }
+
     getMovies();
-    //Add movie to JSON file.
+
+    //Adds movie to JSON file.
+
     $("#submit-movie").click(function () {
         let movieTitle = $("#movie-title").val();
         let movieRating = $("#movie-rating").val();
@@ -44,7 +51,8 @@ $(document).ready(function () {
     });
 
 
-    //function puts movies into html
+    // function puts movies into html
+
     function appendNewMovie(movies) {
 
         let newListItem = "";
@@ -58,7 +66,8 @@ $(document).ready(function () {
         moviesList.innerHTML = newListItem;
     }
 
-        //Deletes movie
+    // This function deletes movie
+
     $("#delete-submit-button").click(function () {
         let movieToDelete = $("#delete-movie").val();
         console.log(movieToDelete);
@@ -75,15 +84,8 @@ $(document).ready(function () {
             },
             body: JSON.stringify(deleteMovie),
         };
-
-
-
-
-
-
-
-                    });
-                })
+    });
+});
 
 
 
