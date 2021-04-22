@@ -1,6 +1,7 @@
 // Later put in window.load or document.ready
 
-const moviesApiURL = "https://rambunctious-fabulous-gopher.glitch.me/movies";
+const moviesApiURL = "https://rambunctious-fabulous-gopher.glitch.me/movies/";
+
 $(document).ready(function () {
 
     $("#submit-movie").click(function () {
@@ -44,7 +45,6 @@ $(document).ready(function () {
 
             newListItem += `<li> The title is: ${movies[i].title} / 
             <span> The rating is: ${movies[i].rating}</span> 
-            <button class="delete-movie" > Delete Movie! </button>
             </li>`;
 
             // console.log(movies[i].title);
@@ -54,60 +54,77 @@ $(document).ready(function () {
         moviesList.innerHTML = newListItem;
     }
 
-    $("[id]").click(function (){
-       var deleteMovie =  $(this).attr("")
-        let deleteMethod = {
-            method: "DELETE"
+    $("#delete-submit-button").click(function () {
+        let movieToDelete = $("#delete-movie").val();
+        let movieTitle = $("#movie-title").val();
+        let movieRating = $("#movie-rating").val();
+        let deleteMovie = {
+            title: movieTitle,
+            rating: movieRating
         }
+        // console.log(movieToDelete);
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(deleteMovie),
+        };
 
 
-        fetch(moviesApiURL +"/7", deleteMethod).then(function(response){
-            console.log(response);
-        })
-
-        console.log(deleteMovie);
-    })
-
+        // $("[id]").click(function () {
+        //     var deleteMovie = $(this).attr("")
+        //     let deleteMethod = {
+        //         method: "DELETE"
+        //     }
 
 
-    fetch("https://rambunctious-fabulous-gopher.glitch.me/movies")
-        .then(response => (response.json())) // parse the JSON from the server
-        .then(response => {
-            appendNewMovie(response);
-
-            moviesForm.addEventListener("submit", event => {
-                event.preventDefault();
-
-                const moviesApiURL = "https://rambunctious-fabulous-gopher.glitch.me/movies";
-                const moviesObj = {
-                    "movie": moviesForm.elements.movie.value
-                }
-                // console.log(moviesObj);
+            fetch(moviesApiURL + movieToDelete.toString(), deleteMethod).then(function (response) {
+                console.log(response);
+            })
+            //
+            //     console.log(deleteMovie);
+        });
 
 
-                $("#delete-submit-button").click(function () {
-                    let deleteMovie = $("#delete-movie").val();
-                    let movieToDelete = {
-                        id: movies.id
+        fetch("https://rambunctious-fabulous-gopher.glitch.me/movies")
+            .then(response => (response.json())) // parse the JSON from the server
+            .then(response => {
+                appendNewMovie(response);
+
+                moviesForm.addEventListener("submit", event => {
+                    event.preventDefault();
+
+                    const moviesApiURL = "https://rambunctious-fabulous-gopher.glitch.me/movies";
+                    const moviesObj = {
+                        "movie": moviesForm.elements.movie.value
                     }
-                    const options = {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(movieToDelete),
-                    };
-                    fetch("https://rambunctious-fabulous-gopher.glitch.me/movies", options)
-                        .then(response => console.log(response)) /* review was created successfully */
-                        .catch(error => console.error(error)); /* handle errors */
-                    fetch("https://rambunctious-fabulous-gopher.glitch.me/movies")
-                        .then(response => (response.json())) // parse the JSON from the server
-                        .then(response => {
-                            // deleteMovies(response)
-                        })
+                    // console.log(moviesObj);
 
+
+                    // $("#delete-submit-button").click(function () {
+                    //     let deleteMovie = $("#delete-movie").val();
+                    //     let movieToDelete = {
+                    //         id: movies.id
+                    //     }
+                    //     const options = {
+                    //         method: 'POST',
+                    //         headers: {
+                    //             'Content-Type': 'application/json',
+                    //         },
+                    //         body: JSON.stringify(movieToDelete),
+                    //     };
+                    //     fetch("https://rambunctious-fabulous-gopher.glitch.me/movies", options)
+                    //         .then(response => console.log(response)) /* review was created successfully */
+                    //         .catch(error => console.error(error)); /* handle errors */
+                    //     fetch("https://rambunctious-fabulous-gopher.glitch.me/movies")
+                    //         .then(response => (response.json())) // parse the JSON from the server
+                    //         .then(response => {
+                    //             // deleteMovies(response)
+                    //         })
+                    //
+                    // });
                 });
-            });
 
-        })
-});
+            })
+    });
