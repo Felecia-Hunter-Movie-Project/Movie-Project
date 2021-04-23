@@ -1,0 +1,39 @@
+body {
+    background: cornflowerblue;
+    color: lightyellow;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#movies {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 32em;
+    padding-top: 2em;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+h4 {
+    display: flex;
+    justify-content: center;
+}
+
+
+footer {
+    display: flex;
+    justify-content: center;
+}
